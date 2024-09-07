@@ -4,7 +4,7 @@ import { Link } from 'expo-router';
 
 const App = () => {
   return (
-    <View style={styles.container}>
+    <View className="flex-1 items-center justify-center bg-white">
       <Text>shAIre!</Text>
       <StatusBar style="auto" />
       <Link href="/profile" style={{ color: 'blue' }}>Go to Profile</Link>
