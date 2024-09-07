@@ -1,6 +1,6 @@
-# shaire
+# shAIre
 
-**shaire** is a full-stack platform designed for sharing AI-generated stock videos. It provides a seamless experience for users to upload, share, and explore a growing library of AI-generated content. The app is built with **React Native** on the frontend and powered by **Appwrite** on the backend.
+**shAIre** is a full-stack platform designed for sharing AI-generated stock videos. It provides a seamless experience for users to upload, share, and explore a growing library of AI-generated content. The app is built with **React Native** on the frontend and powered by **Appwrite** on the backend.
 
 ## Features
 
