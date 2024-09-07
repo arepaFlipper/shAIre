@@ -5,7 +5,6 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text>shAIre!</Text>
-      <Text>shAIre!</Text>
       <StatusBar style="auto" />
     </View>
   );
