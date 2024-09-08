@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Image } from 'react-native'
 import React, { useState } from 'react'
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { images } from '../../constants';
@@ -16,8 +16,23 @@ const SignUp = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {
-    createUser();
+  const submit = async () => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert('Error', 'Please fill in all the fields');
+    }
+
+    setIsSubmitting(true);
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+      console.log(`🌪️%csign-up.jsx:27 - result`, 'font-weight:bold; background:#6c9300;color:#fff;'); //DELETEME:
+      console.log(result); // DELETEME:
+      // NOTE: set it to global state...
+      router.replace('/home');
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -30,12 +45,12 @@ const SignUp = () => {
           <FormField title="Email" value={form.email} handleChangeText={(e) => setForm({ ...form, email: e })} otherStyles="mt-7" keyboardType="email-address" />
           <FormField title="Password" value={form.password} handleChangeText={(e) => setForm({ ...form, password: e })} otherStyles="mt-7" />
 
-          <CustomButton title="Sign In" handlePress={submit} containerStyles="mt-7" isLoading={isSubmitting} />
+          <CustomButton title="Sign Up" handlePress={submit} containerStyles="mt-7" isLoading={isSubmitting} />
 
           <View className="justify-center pt-5 flex gap-2">
             <Text className="text-lg text-gray-100 font-pregular ">
               Have an account already? What are you waiting for?{" "}
-              <Link href="/sign-in" className="text-lg font-psemibold text-secondary">Sign Up</Link>
+              <Link href="/sign-in" className="text-lg font-psemibold text-secondary">Sign In</Link>
             </Text>
           </View>
         </View>
