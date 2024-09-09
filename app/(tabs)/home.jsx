@@ -5,10 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants/';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
+import EmptyState from '../../components/EmptyState';
 
 const Home = () => {
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView className="bg-primary border-2 border-red-500 h-full">
       <FlatList
         // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         data={[]}
@@ -28,7 +29,7 @@ const Home = () => {
 
             <SearchInput />
 
-            <View className="w-full flex-1 pt-5 pb-8">
+            <View className="w-full flex-1 pt-1 pb-1">
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
               </Text>
@@ -37,9 +38,9 @@ const Home = () => {
             </View>
           </View>
         )}
-        listEmptyComponent={() => {
+        ListEmptyComponent={() => {
           return (
-            <Text className="text-white">Empty</Text>
+            <EmptyState title="No Videos Found" subtitle="No videos created yet, be the first one to upload one" />
           )
         }}
       />
