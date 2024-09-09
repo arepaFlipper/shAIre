@@ -4,8 +4,6 @@ import { icons } from '../constants';
 
 const VideoCard = ({ item: { video, thumbnail, creator, title, users: { avatar } } }) => {
   const [play, setPlay] = useState(false);
-  console.log(`🍅%cVideoCard.jsx:7 - avatar`, 'font-weight:bold; background:#25da00;color:#fff;'); //DELETEME:
-  console.log(avatar); // DELETEME:
   return (
     <View className="flex-col items-center px-4 mb-14">
       <View className="flex-row gap-3 items-start">
@@ -25,10 +23,11 @@ const VideoCard = ({ item: { video, thumbnail, creator, title, users: { avatar }
         </View>
       </View>
       {(play) ? (
-        <Text className="text-2xl text-white">Playing</Text>
+        <Text className="text-2xl text-white">Playing...</Text>
       ) : (
         <TouchableOpacity className="w-full h-60 rounded-xl mt-3 relative justify-center items-center" activeOpacity={0.7} onPress={() => setPlay(true)}>
           <Image source={{ uri: thumbnail }} className="w-full h-full rounded-xl mt-3" resizeMode="cover" />
+          <Image source={icons.play} className="w-12 h-12 absolute" resizeMode="contain" />
         </TouchableOpacity>
       )}
     </View>

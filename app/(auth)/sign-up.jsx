@@ -24,8 +24,6 @@ const SignUp = () => {
     setIsSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
-      console.log(`🌪️%csign-up.jsx:27 - result`, 'font-weight:bold; background:#6c9300;color:#fff;'); //DELETEME:
-      console.log(result); // DELETEME:
       // NOTE: set it to global state...
       router.replace('/home');
     } catch (error) {
