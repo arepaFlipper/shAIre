@@ -8,6 +8,7 @@ import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
 import { getAllPosts } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
+import VideoCard from '../../components/VideoCard';
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
@@ -25,7 +26,11 @@ const Home = () => {
         // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         data={posts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (<Text className="text-3xl text-white">{item.title}</Text>)}
+        renderItem={({ item }) => {
+          console.log(`🔦 %chome.jsx:30 - item`, 'font-weight:bold; background:#738c00;color:#fff;'); //DELETEME:
+          console.log(item); // DELETEME:
+          return <VideoCard item={item} />
+        }}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
             <View className="justify-between items-start flex-row mb-6">
