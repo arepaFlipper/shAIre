@@ -1,5 +1,5 @@
-import { View, Text, FlatList, Image } from 'react-native'
-import React from 'react'
+import { View, Text, FlatList, Image, RefreshControl } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { images } from '../../constants/';
@@ -8,6 +8,13 @@ import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
 
 const Home = () => {
+  const [refresh, setRefresh] = useState(false);
+
+  const onRefresh = async () => {
+    setRefresh(true);
+    // NOTE: re-call videos -> if any new videos appeard
+    setRefresh(false);
+  }
   return (
     <SafeAreaView className="bg-primary border-2 border-red-500 h-full">
       <FlatList
@@ -43,6 +50,7 @@ const Home = () => {
             <EmptyState title="No Videos Found" subtitle="No videos created yet, be the first one to upload one" />
           )
         }}
+        refreshControl={<RefreshControl refresing={refresh} onRefresh={onRefresh} />}
       />
     </SafeAreaView>
   )
