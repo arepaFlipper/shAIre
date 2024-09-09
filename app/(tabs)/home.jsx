@@ -7,43 +7,25 @@ import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
 import { getAllPosts } from '../../lib/appwrite';
+import useAppwrite from '../../lib/useAppwrite';
 
 const Home = () => {
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
   const [refresh, setRefresh] = useState(false);
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getAllPosts();
-        setData(response);
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [])
-
-  console.log(`💓%chome.jsx:32 - data`, 'font-weight:bold; background:#788700;color:#fff;'); //DELETEME:
-  console.log(data); // DELETEME:
 
   const onRefresh = async () => {
     setRefresh(true);
-    // NOTE: re-call videos -> if any new videos appeard
+    await refetch();
     setRefresh(false);
   }
+
   return (
     <SafeAreaView className="bg-primary border-2 border-red-500 h-full">
       <FlatList
         // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-        data={[]}
+        data={posts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (<Text className="text-3xl text-white">{item.id}</Text>)}
+        renderItem={({ item }) => (<Text className="text-3xl text-white">{item.title}</Text>)}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
             <View className="justify-between items-start flex-row mb-6">
