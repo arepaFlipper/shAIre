@@ -1,5 +1,5 @@
 import { Image, Text, FlatList, TouchableOpacity, ImageBackground } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import * as Animatable from 'react-native-animatable';
 import { icons } from '../constants';
 import { Video, ResizeMode } from 'expo-av';
@@ -10,6 +10,7 @@ const zoomOut = { 0: { scale: 1 }, 1: { scale: 0.8 } };
 
 const TrendingItem = ({ item, activeItem }) => {
   const [play, setPlay] = useState(false)
+  const video_ref = useRef(null);
   return (
     <Animatable.View
       className="mr-5"
@@ -18,15 +19,16 @@ const TrendingItem = ({ item, activeItem }) => {
     >
       {play ? (
         <Video
-          source={{ uri: item.video }}
+          ref={video_ref}
+          source={{ uri: 'https://cdn.pixabay.com/video/2020/06/06/41263-429379223_large.mp4' }}
           className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
+            console.log(`🛹%cTrending.jsx:29 - status`, 'font-weight:bold; background:#718e00;color:#fff;'); //DELETEME:
+            console.log(status); // DELETEME:
+            setPlay(() => status);
           }}
         />
       ) : (
@@ -65,7 +67,9 @@ const Trending = ({ posts }) => {
     <FlatList
       data={posts}
       horizontal
-      keyExtractor={(item) => item.$id}
+      keyExtractor={(item) => {
+        return item.$id
+      }}
       renderItem={({ item }) => {
         return <TrendingItem activeItem={activeItem} item={item} />
       }}
