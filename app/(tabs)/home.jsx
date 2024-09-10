@@ -10,6 +10,7 @@ import { getAllPosts, getLatestPosts, signOut } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
 import VideoCard from '../../components/VideoCard';
 import { useGlobalContext } from '../../context/GlobalProvider';
+import { router } from 'expo-router';
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
