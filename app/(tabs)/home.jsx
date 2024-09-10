@@ -6,7 +6,7 @@ import { images } from '../../constants/';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
-import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
+import { getAllPosts, getLatestPosts, signOut } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
 import VideoCard from '../../components/VideoCard';
 import { useGlobalContext } from '../../context/GlobalProvider';
@@ -22,6 +22,9 @@ const Home = () => {
     await refetch();
     setRefresh(false);
   }
+
+  console.log(`🛂%chome.jsx:26 - user`, 'font-weight:bold; background:#6a9500;color:#fff;'); //DELETEME:
+  console.log(user?.username); // DELETEME:
 
   return (
     <SafeAreaView className="bg-primary border-2 border-red-500 h-full">

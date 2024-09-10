@@ -6,11 +6,14 @@ import { images } from '../constants';
 import CustomButton from '../components/CustomButton';
 
 import { useGlobalContext } from '../context/GlobalProvider';
+import { signOut } from '../lib/appwrite';
 
 const App = () => {
   const { isLoading, isLoggedIn } = useGlobalContext();
 
-  if (!isLoading && isLoggedIn) return <Redirect href="/home" />
+  if (!isLoading && isLoggedIn) {
+    return <Redirect href="/home" />
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">

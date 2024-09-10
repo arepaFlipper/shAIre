@@ -26,8 +26,6 @@ const TrendingItem = ({ item, activeItem }) => {
           useNativeControls
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
-            console.log(`🛹%cTrending.jsx:29 - status`, 'font-weight:bold; background:#718e00;color:#fff;'); //DELETEME:
-            console.log(status); // DELETEME:
             setPlay(() => status);
           }}
         />
