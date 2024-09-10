@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 import { icons } from '../constants';
 import { usePathname, router } from 'expo-router';
 
-const SearchInput = ({ title, value, handleChangeText, otherStyles, ...props }) => {
+const SearchInput = ({ title, value, handleChangeText, otherStyles, initialQuery, ...props }) => {
   const pathname = usePathname();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(initialQuery || '');
 
   return (
     <View className="border border-sky-200 w-full h-16 px-4 bg-black-200 rounded-2xl focus:border-secondary items-center flex-row space-x-4">
