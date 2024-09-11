@@ -6,9 +6,10 @@ import { Video } from 'expo-av';
 import CustomButton from '../../components/CustomButton';
 import { router } from 'expo-router';
 import { createVideo } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const Create = () => {
-
+  const { user } = useGlobalContext();
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     title: '',
@@ -28,11 +29,7 @@ const Create = () => {
       if (selectType === 'video') {
         setForm({ ...form, video: result.assets[0] });
       }
-    } else {
-      setTimeout(() => {
-        Alert.alert('Document picked', JSON.stringify(result, null, 2));
-      }, 100);
-    }
+    };
   };
 
   const submit = async () => {
@@ -75,7 +72,7 @@ const Create = () => {
           <TouchableOpacity onPress={() => openPicker('video')}>
             {(form.video ?
               (
-                <Video source={{ uri: form.video.uri }} className="w-full h-64 rounded-2xl" useNativeControls resizeMode={ResizeMode.COVER} isLooping />
+                <Video source={{ uri: form.video.uri }} className="w-full h-64 rounded-2xl" resizeMode={ResizeMode.COVER} />
               ) : (
                 <View className="w-full h-40 px-4 bg-black-100 rounded-2xl justify-center items-center">
                   <View className="w-14 h-14 border-dashed border secondary-100 justify-center items-center">
