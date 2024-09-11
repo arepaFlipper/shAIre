@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-na
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import FormField from '../../components/FormField';
+import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
 import CustomButton from '../../components/CustomButton';
 import { router } from 'expo-router';
@@ -19,7 +20,14 @@ const Create = () => {
   })
 
   const openPicker = async (selectType) => {
-    const result = await DocumentPicker.getDocumentAsync({ type: selectType === 'image' ? ['image/png', 'image/jpg'] : ['video/mp4', 'video/gif'] })
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: (selectType === 'image') ?
+        ImagePicker.MediaTypeOptions.Images :
+        ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    })
 
     if (!result.canceled) {
       if (selectType === 'image') {
