@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import FormField from '../../components/FormField';
 import { Video } from 'expo-av';
 import CustomButton from '../../components/CustomButton';
+import { router } from 'expo-router';
+import { createVideo } from '../../lib/appwrite';
 
 const Create = () => {
 
@@ -33,7 +35,26 @@ const Create = () => {
     }
   };
 
-  const submit = () => { };
+  const submit = async () => {
+    if (!form.prompt || !form.title || !form.thumbnail || !form.video) {
+      return Alert.alert('Please fill in all the fields');
+
+    }
+
+    setUploading(true);
+
+    try {
+      await createVideo({ ...form, userId: user.$id })
+      Alert.alert('Success', 'Post uploaded successfully');
+      router.push('/home');
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setForm({ title: '', video: null, thumbnail: null, prompt: '' })
+    };
+
+    setUploading(false);
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
