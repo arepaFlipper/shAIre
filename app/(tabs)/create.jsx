@@ -1,5 +1,6 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import FormField from '../../components/FormField';
 import { Video } from 'expo-av';
 import CustomButton from '../../components/CustomButton';
@@ -14,7 +15,25 @@ const Create = () => {
     prompt: '',
   })
 
-  const submit = () => { }
+  const openPicker = async (selectType) => {
+    const result = await DocumentPicker.getDocumentAsync({ type: selectType === 'image' ? ['image/png', 'image/jpg'] : ['video/mp4', 'video/gif'] })
+
+    if (!result.canceled) {
+      if (selectType === 'image') {
+        setForm({ ...form, thumbnail: result.assets[0] });
+      }
+
+      if (selectType === 'video') {
+        setForm({ ...form, video: result.assets[0] });
+      }
+    } else {
+      setTimeout(() => {
+        Alert.alert('Document picked', JSON.stringify(result, null, 2));
+      }, 100);
+    }
+  };
+
+  const submit = () => { };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -32,7 +51,7 @@ const Create = () => {
         <View className="mt-7 space-y-2">
           <Text clasName="text-base text-gray-100 font-pmedium">Upload Video</Text>
           Thumbnail Image
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => openPicker('video')}>
             {(form.video ?
               (
                 <Video source={{ uri: form.video.uri }} className="w-full h-64 rounded-2xl" useNativeControls resizeMode={ResizeMode.COVER} isLooping />
@@ -52,7 +71,7 @@ const Create = () => {
             Thumbnail Image
           </Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => openPicker('image')}>
             {(form.thumbnail ?
               (
                 <Image source={{ uri: form.thumbnail.uri }} resizeMode="cover" clasName="w-full h-64 rounded-2xl" />
