@@ -2,6 +2,7 @@ import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
